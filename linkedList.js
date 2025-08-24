@@ -114,14 +114,12 @@ class LinkedList {
   find(value) {
     // returns the index of the node containing value, or null if not found
     let nodeIndex = 0;
-    if (this.list.value === value) {
-      return nodeIndex;
-    }
     function findNodeIndexByValue(node) {
-      nodeIndex++;
-      if (node.nextNode.value === value) {
+      if (node.value === value) {
         return nodeIndex;
-      } else if (node.nextNode === null) {
+      }
+      nodeIndex++;
+      if (node.nextNode === null) {
         return null;
       }
       return findNodeIndexByValue(node.nextNode);
@@ -134,7 +132,7 @@ class LinkedList {
       if (node === null) {
         return `( ${null} )`;
       }
-        return `( ${node.value} ) -> ` + stringify(node.nextNode);
+      return `( ${node.value} ) -> ` + stringify(node.nextNode);
     }
     return stringify(this.list);
   }
