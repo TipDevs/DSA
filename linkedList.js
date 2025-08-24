@@ -29,6 +29,19 @@ class LinkedList {
   }
   size() {
     // returns the number of nodes in the list
+    function countList(list) {
+      let listSize = 0;
+      if (list === null) {
+        return listSize;
+      }
+      listSize += 1;
+      if (list.nextNode === null) {
+        return listSize;
+      }
+      listSize += countList(list.nextNode);
+      return listSize;
+    }
+    return countList(this.list);
   }
   head() {
     // returns the first node in the list
