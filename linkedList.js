@@ -49,6 +49,17 @@ class LinkedList {
   }
   tail() {
     // returns the last node in the list
+    if (this.list === null) {
+      throw new Error("List is empty");
+    } else {
+      return getLastNode(this.list);
+    }
+    function getLastNode(list) {
+      if (list.nextNode === null) {
+        return list;
+      }
+      return getLastNode(list.nextNode);
+    }
   }
   at(index) {
     // returns the node at the given index
