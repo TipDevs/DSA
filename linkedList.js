@@ -4,6 +4,17 @@ class LinkedList {
   }
   append(value) {
     // adds new node containing value to the end of the list
+    const newNode = new Node();
+    newNode.value = value;
+    if (this.list === null) {
+      this.list = newNode;
+    } else {
+      fillNextNode(this.list);
+    }
+    function fillNextNode(node) {
+      node.nextNode = newNode;
+      return fillNextNode(node.nextNode);
+    }
   }
   prepend(value) {
     // adds new node containing value to the start of the list
@@ -34,3 +45,4 @@ class LinkedList {
   }
 }
 
+export { LinkedList };
