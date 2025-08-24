@@ -100,6 +100,16 @@ class LinkedList {
   }
   contains(value) {
     // returns true if the passed in value is in the list and otherwise return false
+    function nodeContainValue(node) {
+      if (node.value === value) {
+        return true;
+      } else if (node.nextNode === null) {
+        return false;
+      } else if (node.value !== value) {
+        return nodeContainValue(node.nextNode);
+      }
+    }
+    return nodeContainValue(this.list);
   }
   find(value) {
     // returns the index of the node containing value, or null if not found
