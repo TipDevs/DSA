@@ -21,6 +21,11 @@ class LinkedList {
   }
   prepend(value) {
     // adds new node containing value to the start of the list
+    const newNode = new Node();
+    newNode.value = value;
+    const listDuplicate = this.list;
+    this.list = newNode;
+    this.list.nextNode = listDuplicate;
   }
   size() {
     // returns the number of nodes in the list
