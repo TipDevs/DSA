@@ -85,6 +85,18 @@ class LinkedList {
   }
   pop() {
     // removes the last element from the list
+    if (this.list === null) {
+      throw new Error("List is empty");
+    } else {
+      return removeLastNode(this.list);
+    }
+    function removeLastNode(node) {
+      if (node.nextNode.nextNode === null) {
+        node.nextNode = node.nextNode.nextNode;
+        return node.nextNode;
+      }
+      return removeLastNode(node.nextNode);
+    }
   }
   contains(value) {
     // returns true if the passed in value is in the list and otherwise return false
