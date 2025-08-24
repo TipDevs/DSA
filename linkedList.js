@@ -113,6 +113,20 @@ class LinkedList {
   }
   find(value) {
     // returns the index of the node containing value, or null if not found
+    let nodeIndex = 0;
+    if (this.list.value === value) {
+      return nodeIndex;
+    }
+    function findNodeIndexByValue(node) {
+      nodeIndex++;
+      if (node.nextNode.value === value) {
+        return nodeIndex;
+      } else if (node.nextNode === null) {
+        return null;
+      }
+      return findNodeIndexByValue(node.nextNode);
+    }
+    return findNodeIndexByValue(this.list);
   }
   toString() {
     // represents the LinkedList objects as strings
