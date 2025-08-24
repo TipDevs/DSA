@@ -45,6 +45,7 @@ class LinkedList {
   }
   head() {
     // returns the first node in the list
+    return this.list;
   }
   tail() {
     // returns the last node in the list
