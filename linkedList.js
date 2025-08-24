@@ -130,6 +130,13 @@ class LinkedList {
   }
   toString() {
     // represents the LinkedList objects as strings
+    function stringify(node) {
+      if (node === null) {
+        return `( ${null} )`;
+      }
+        return `( ${node.value} ) -> ` + stringify(node.nextNode);
+    }
+    return stringify(this.list);
   }
 }
 
