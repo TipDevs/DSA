@@ -12,8 +12,11 @@ class LinkedList {
       fillNextNode(this.list);
     }
     function fillNextNode(node) {
-      node.nextNode = newNode;
-      return fillNextNode(node.nextNode);
+      if (node.nextNode === null) {
+        node.nextNode = newNode;
+        return;
+      }
+      fillNextNode(node.nextNode);
     }
   }
   prepend(value) {
