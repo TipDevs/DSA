@@ -63,6 +63,26 @@ class LinkedList {
   }
   at(index) {
     // returns the node at the given index
+    let nodeIndex = 0;
+    if (this.list === null) {
+      throw new Error("List is empty");
+    } else {
+      if (index === nodeIndex) {
+        return this.list;
+      } else {
+        return nodeAtIndex(this.list);
+      }
+      function nodeAtIndex(node) {
+        nodeIndex++;
+        if (node.nextNode !== null && index === nodeIndex) {
+          return node.nextNode;
+        }
+        else if (node.nextNode === null) {
+            return `Node not found at index: ${index}`
+        }
+        return nodeAtIndex(node.nextNode);
+      }
+    }
   }
   pop() {
     // removes the last element from the list
