@@ -76,9 +76,8 @@ class LinkedList {
         nodeIndex++;
         if (node.nextNode !== null && index === nodeIndex) {
           return node.nextNode;
-        }
-        else if (node.nextNode === null) {
-            return `Node not found at index: ${index}`
+        } else if (node.nextNode === null) {
+          return `Node not found at index: ${index}`;
         }
         return nodeAtIndex(node.nextNode);
       }
