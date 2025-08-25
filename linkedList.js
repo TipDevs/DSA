@@ -1,6 +1,7 @@
 class LinkedList {
   constructor() {
     this.list = null;
+    this.tailNode = null;
   }
   append(value) {
     // adds new node containing value to the end of the list
@@ -8,133 +9,117 @@ class LinkedList {
     newNode.value = value;
     if (this.list === null) {
       this.list = newNode;
+      this.tailNode = newNode;
     } else {
-      fillNextNode(this.list);
-    }
-    function fillNextNode(node) {
-      if (node.nextNode === null) {
-        node.nextNode = newNode;
-        return;
-      }
-      fillNextNode(node.nextNode);
+      this.tailNode.nextNode = newNode;
+      this.tailNode = newNode;
     }
   }
   prepend(value) {
     // adds new node containing value to the start of the list
     const newNode = new Node();
     newNode.value = value;
-    const listDuplicate = this.list;
+    newNode.nextNode = this.list;
     this.list = newNode;
-    this.list.nextNode = listDuplicate;
   }
   size() {
     // returns the number of nodes in the list
-    function countList(list) {
-      let listSize = 0;
-      if (list === null) {
-        return listSize;
-      }
-      listSize += 1;
-      if (list.nextNode === null) {
-        return listSize;
-      }
-      listSize += countList(list.nextNode);
-      return listSize;
+    let listSize = 0;
+    let current = this.list;
+    while (current !== null) {
+      listSize++;
+      current = current.nextNode;
     }
-    return countList(this.list);
+    return listSize;
   }
   head() {
     // returns the first node in the list
+    if (this.list === null) {
+      throw new Error("List is empty");
+    }
     return this.list;
   }
   tail() {
     // returns the last node in the list
     if (this.list === null) {
       throw new Error("List is empty");
-    } else {
-      return getLastNode(this.list);
     }
-    function getLastNode(list) {
-      if (list.nextNode === null) {
-        return list;
-      }
-      return getLastNode(list.nextNode);
-    }
+    return this.tailNode;
   }
   at(index) {
     // returns the node at the given index
-    let nodeIndex = 0;
     if (this.list === null) {
       throw new Error("List is empty");
     } else {
-      if (index === nodeIndex) {
-        return this.list;
-      } else {
-        return nodeAtIndex(this.list);
-      }
-      function nodeAtIndex(node) {
+      let current = this.list;
+      let nodeIndex = 0;
+      while (current !== null) {
+        if (index === nodeIndex) return current;
         nodeIndex++;
-        if (node.nextNode !== null && index === nodeIndex) {
-          return node.nextNode;
-        } else if (node.nextNode === null) {
-          return `Node not found at index: ${index}`;
-        }
-        return nodeAtIndex(node.nextNode);
+        current = current.nextNode;
       }
     }
+    return `${index} exceeded node indexes`;
   }
   pop() {
     // removes the last element from the list
     if (this.list === null) {
       throw new Error("List is empty");
-    } else {
-      return removeLastNode(this.list);
     }
-    function removeLastNode(node) {
-      if (node.nextNode.nextNode === null) {
-        node.nextNode = node.nextNode.nextNode;
-        return node.nextNode;
+    if (this.list.nextNode === null) {
+      this.list = null;
+      return;
+    } else {
+      let current = this.list;
+      while (current.nextNode.nextNode !== null) {
+        current = current.nextNode;
       }
-      return removeLastNode(node.nextNode);
+      current.nextNode = null;
     }
   }
   contains(value) {
     // returns true if the passed in value is in the list and otherwise return false
-    function nodeContainValue(node) {
-      if (node.value === value) {
-        return true;
-      } else if (node.nextNode === null) {
-        return false;
-      } else if (node.value !== value) {
-        return nodeContainValue(node.nextNode);
-      }
+    let current = this.list;
+    while (current !== null) {
+      if (current.value === value) return true;
+      current = current.nextNode;
     }
-    return nodeContainValue(this.list);
+    return false;
   }
   find(value) {
     // returns the index of the node containing value, or null if not found
     let nodeIndex = 0;
-    function findNodeIndexByValue(node) {
-      if (node.value === value) {
+    if (this.list === null) {
+      throw new Error("List is empty");
+    }
+    let current = this.list;
+    while (current !== null) {
+      if (current.value === value) {
         return nodeIndex;
       }
       nodeIndex++;
-      if (node.nextNode === null) {
-        return null;
-      }
-      return findNodeIndexByValue(node.nextNode);
+      current = current.nextNode;
     }
-    return findNodeIndexByValue(this.list);
+    return null;
   }
   toString() {
     // represents the LinkedList objects as strings
-    function stringify(node) {
-      if (node === null) {
-        return `( ${null} )`;
-      }
-      return `( ${node.value} ) -> ` + stringify(node.nextNode);
+    let stringObject;
+    if (this.list === null) {
+      stringObject = "( null )";
     }
-    return stringify(this.list);
+    if (this.list !== null) {
+      stringObject = `( ${this.list.value} ) -> `;
+    }
+    let current = this.list;
+    while (current.nextNode !== null) {
+      stringObject += `( ${current.nextNode.value} ) -> `;
+      if (current.nextNode.nextNode === null) {
+        stringObject += "( null )";
+      }
+      current = current.nextNode;
+    }
+    return stringObject;
   }
 }
 
