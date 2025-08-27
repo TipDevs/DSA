@@ -1,5 +1,5 @@
-# DSA
-Data Structure And Algorithms projects
+# linkedlist
+Data Structure And Algorithms projects with linkedlist
 
 | Terminal Result | Code + Terminal |
 |:---------------:|:---------------:|
